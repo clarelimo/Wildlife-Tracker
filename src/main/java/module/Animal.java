@@ -4,7 +4,7 @@ import org.sql2o.Connection;
 
 import java.util.List;
 
-public class Animal extends Wildlife{
+public class Animal extends Wildlife implements DatabaseManagement{
     public static final String ANIMAL_TYPE = "animal";
 
     public Animal(String name){
