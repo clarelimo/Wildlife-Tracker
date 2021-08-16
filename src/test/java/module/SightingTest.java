@@ -18,4 +18,22 @@ public class SightingTest {
         assertEquals(true,animal instanceof Sighting);
     }
 
+    @Test
+    public void sighting_instantiatesWithAnimalId_String(){
+        Sighting animal = setupSighting();
+        assertEquals(1,animal.getAnimalId());
+    }
+
+    @Test
+    public void sighting_instantiatesWithLocation_String(){
+        Sighting animal = setupSighting();
+        assertEquals("zone A",animal.getLocation());
+    }
+
+    @Test
+    public void sighting_instantiatesWithRangerName_String(){
+        Sighting animal = setupSighting();
+        assertEquals("Alpha",animal.getRangerName());
+    }
+
 }
