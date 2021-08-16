@@ -15,7 +15,6 @@ public class AnimalTest {
 
     @Test
     public void animal_instantiatesCorrectly_true(){
-//        Animal animal = new Animal("elephant","weak","young");
         Animal animal = setUpAnimal();
         assertEquals(true,animal instanceof Animal);
     }
@@ -48,4 +47,13 @@ public class AnimalTest {
         assertEquals(savedAnimal.getId(), animal.getId());
     }
 
+    @Test
+    public void all_returnsAllInstancesOfAnimal_true() {
+        Animal firstAnimal = setUpAnimal();
+        firstAnimal.save();
+        Animal secondAnimal = new Animal("lion");
+        secondAnimal.save();
+        assertEquals(true, Animal.all().get(0).equals(firstAnimal));
+        assertEquals(true, Animal.all().get(1).equals(secondAnimal));
+    }
 }
