@@ -43,4 +43,11 @@ public class SightingTest {
         assertTrue(animal.equals(anotherAnimal));
     }
 
+    @Test
+    public void save_successfullyAddsSightingToDatabase_List() {
+        Sighting animal = setupSighting();
+        animal.save();
+        assertTrue(Sighting.all().get(0).equals(animal));
+    }
+
 }

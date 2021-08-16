@@ -1,9 +1,13 @@
 package module;
 
+import org.sql2o.Connection;
+
 import java.sql.Timestamp;
+import java.util.List;
 
 public class Sighting {
     private int animalId;
+    private int id;
     private String location;
     private String rangerName;
     private Timestamp lastSeen;
@@ -16,6 +20,10 @@ public class Sighting {
 
     public int getAnimalId() {
         return animalId;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getLocation() {
@@ -41,4 +49,25 @@ public class Sighting {
                     this.getAnimalId() == newSighting.getAnimalId();
         }
     }
+
+    public void save(){
+        try(Connection con = DB.sql2o.open()) {
+            String sql = "INSERT INTO sightings (animalId, location, rangerName, lastSeen) VALUES (:animalId, :location, :rangerName, now())";
+            this.id = (int) con.createQuery(sql, true)
+                    .addParameter("animalId", this.animalId)
+                    .addParameter("location", this.location)
+                    .addParameter("rangerName",this.rangerName)
+                    .throwOnMappingFailure(false)
+                    .executeUpdate()
+                    .getKey();
+        }
+    }
+
+    public static List<Sighting> all(){
+        String sql = "SELECT * FROM sightings";
+        try(Connection con = DB.sql2o.open()) {
+            return con.createQuery(sql).executeAndFetch(Sighting.class);
+        }
+    }
+
 }
