@@ -36,4 +36,11 @@ public class SightingTest {
         assertEquals("Alpha",animal.getRangerName());
     }
 
+    @Test
+    public void equals_returnsTrueIfAnimalIdAreSame_true() {
+        Sighting animal = setupSighting();
+        Sighting anotherAnimal = new Sighting(1,"zone A","Alpha");
+        assertTrue(animal.equals(anotherAnimal));
+    }
+
 }
