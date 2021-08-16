@@ -1,5 +1,7 @@
 package module;
 
+import org.sql2o.Connection;
+
 public abstract class Wildlife {
     public String name;
     public  int animalId;
@@ -31,4 +33,18 @@ public abstract class Wildlife {
     public String getType() {
         return type;
     }
+
+    public void save(){
+        try(Connection con = DB.sql2o.open()) {
+            String sql = "INSERT INTO animals (name, health, age, type) VALUES (:name, :health, :age, :type)";
+            this.id = (int) con.createQuery(sql, true)
+                    .addParameter("name", this.name)
+                    .addParameter("health", this.health)
+                    .addParameter("age",this.age)
+                    .addParameter("type", this.type)
+                    .executeUpdate()
+                    .getKey();
+        }
+    }
+
 }
