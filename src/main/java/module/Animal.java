@@ -31,4 +31,15 @@ public class Animal extends Wildlife implements DatabaseManagement{
         }
     }
 
+    public static Animal find(int id) {
+        try (Connection con = DB.sql2o.open()) {
+            String sql = "SELECT * FROM animals where id=:id";
+            Animal animal = con.createQuery(sql)
+                    .addParameter("id", id)
+                    .throwOnMappingFailure(false)
+                    .executeAndFetchFirst(Animal.class);
+            return animal;
+        }
+    }
+
 }
