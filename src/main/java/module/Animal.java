@@ -5,9 +5,11 @@ import org.sql2o.Connection;
 import java.util.List;
 
 public class Animal extends Wildlife{
+    public static final String ANIMAL_TYPE = "animal";
 
     public Animal(String name){
         this.name = name;
+        this.type = ANIMAL_TYPE;
     }
 
     @Override

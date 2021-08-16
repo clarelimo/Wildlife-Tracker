@@ -42,6 +42,7 @@ public abstract class Wildlife {
                     .addParameter("health", this.health)
                     .addParameter("age",this.age)
                     .addParameter("type", this.type)
+                    .throwOnMappingFailure(false)
                     .executeUpdate()
                     .getKey();
         }
