@@ -3,6 +3,8 @@ package module;
 import org.junit.Rule;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static org.junit.Assert.*;
 
 public class SightingTest {
@@ -50,7 +52,6 @@ public class SightingTest {
         assertTrue(Sighting.all().get(0).equals(animal));
     }
 
-
     @Test
     public void save_assignsIdToSighting() {
         Sighting animal = setupSighting();
@@ -77,5 +78,18 @@ public class SightingTest {
         anotherAnimal.save();
         assertEquals(Sighting.find(anotherAnimal.getId()), anotherAnimal);
     }
+//
+//    @Test
+//    public void getAnimals_retrievesAllAnimalsFromDatabase_AnimalsList() {
+//        Animal firstAnimal = new Animal("elephant");
+//        firstAnimal.save();
+//        EndangeredAnimal secondAnimal =new EndangeredAnimal("elephant","weak","young");
+//        secondAnimal.save();
+//
+//        Sighting firstSighting = new Sighting(firstAnimal.getId(),"Zone A", "Alpha");
+//        Sighting secondSighting = new Sighting(secondAnimal.getId(),"Zone B", "Beta");
+//        Object[] animals = new Object[] { firstSighting, secondSighting };
+//        assertTrue(firstSighting.getAnimals().containsAll(Arrays.asList(animals)));
+//    }
 
 }
