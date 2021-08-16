@@ -70,4 +70,14 @@ public class Sighting {
         }
     }
 
+    public static Sighting find(int id) {
+        try(Connection con = DB.sql2o.open()) {
+            String sql = "SELECT * FROM sightings where id=:id";
+            Sighting sighting = con.createQuery(sql)
+                    .addParameter("id", id)
+                    .executeAndFetchFirst(Sighting.class);
+            return sighting;
+        }
+    }
+
 }

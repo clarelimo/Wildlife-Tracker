@@ -50,4 +50,32 @@ public class SightingTest {
         assertTrue(Sighting.all().get(0).equals(animal));
     }
 
+
+    @Test
+    public void save_assignsIdToSighting() {
+        Sighting animal = setupSighting();
+        animal.save();
+        Sighting savedAnimal = Sighting.all().get(0);
+        assertEquals(savedAnimal.getId(), animal.getId());
+    }
+
+    @Test
+    public void all_returnsAllInstancesOfSighting_true() {
+        Sighting firstAnimal = setupSighting();
+        firstAnimal.save();
+        Sighting anotherAnimal = new Sighting(1,"zone A","Alpha");
+        anotherAnimal.save();
+        assertEquals(true, Sighting.all().get(0).equals(firstAnimal));
+        assertEquals(true, Sighting.all().get(1).equals(anotherAnimal));
+    }
+
+    @Test
+    public void find_returnsSightingWithSameId_secondAnimal() {
+        Sighting firstAnimal = setupSighting();
+        firstAnimal.save();
+        Sighting anotherAnimal = new Sighting(1,"zone A","Alpha");
+        anotherAnimal.save();
+        assertEquals(Sighting.find(anotherAnimal.getId()), anotherAnimal);
+    }
+
 }
