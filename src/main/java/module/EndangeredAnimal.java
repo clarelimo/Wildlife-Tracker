@@ -12,6 +12,10 @@ public class EndangeredAnimal extends Wildlife implements DatabaseManagement{
         this.health = health;
         this.age = age;
         this.type = ANIMAL_TYPE;
+
+        if (name.isEmpty() || health.isEmpty() || age.isEmpty()){
+            throw new IllegalArgumentException("Please enter all input fields.");
+        }
     }
 
     @Override
