@@ -55,5 +55,12 @@ public class App {
             model.put("animal", allAnimals);
             return new ModelAndView(model, "sightings.hbs");
         }, new HandlebarsTemplateEngine());
+
+        get("/sightings", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            model.put("sightings", Sighting.all());
+            model.put("animal", Animal.getAnimals());
+            return new ModelAndView(model, "sightings.hbs");
+        }, new HandlebarsTemplateEngine());
     }
 }

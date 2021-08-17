@@ -2,6 +2,7 @@ package module;
 
 import org.sql2o.Connection;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Animal extends Wildlife implements DatabaseManagement{
@@ -43,6 +44,26 @@ public class Animal extends Wildlife implements DatabaseManagement{
                     .executeAndFetchFirst(Animal.class);
             return animal;
         }
+    }
+
+    public static List<Object> getAnimals() {
+        List<Object> allAnimals = new ArrayList<Object>();
+
+        try(Connection con = DB.sql2o.open()) {
+            String sqlFire = "SELECT * FROM animals WHERE id=:id AND type='animal';";
+            List<Animal> animals = con.createQuery(sqlFire)
+                    .throwOnMappingFailure(false)
+                    .executeAndFetch(Animal.class);
+            allAnimals.addAll(animals);
+
+            String sqlWater = "SELECT * FROM animals WHERE id=:id AND type='endangered-animal';";
+            List<EndangeredAnimal> endangeredAnimals = con.createQuery(sqlWater)
+                    .throwOnMappingFailure(false)
+                    .executeAndFetch(EndangeredAnimal.class);
+            allAnimals.addAll(endangeredAnimals);
+        }
+
+        return allAnimals;
     }
 
 }
