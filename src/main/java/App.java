@@ -28,12 +28,13 @@ public class App {
 
         post("/sightings", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
-            String rangerName = request.queryParams("rangerName");
-            String location = request.queryParams("sightingLocation");
-            String animalName = request.queryParams("animalName");
-            String age = request.queryParams("animalAge");
-            String health = request.queryParams("animalHealth");
-            String type = request.queryParams("animalType");
+            String animalName = request.queryParams("animal");
+            String rangerName = request.queryParams("ranger");
+            String location = request.queryParams("location");
+            String health = request.queryParams("health");
+            String age = request.queryParams("age");
+            String type = request.queryParams("type");
+            System.out.println(type);
             if(type.equals("animal")){
                 Animal animal = new Animal(animalName);
                 animal.save();
@@ -58,8 +59,13 @@ public class App {
 
         get("/sightings", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
+            List<Object> allAnimals = new ArrayList<Object>();
+            List<Animal> animals= Animal.all();
+            allAnimals.add(animals);
+            List<EndangeredAnimal> endangeredAnimals= EndangeredAnimal.all();
+            allAnimals.add(endangeredAnimals);
             model.put("sightings", Sighting.all());
-            model.put("animal", Animal.getAnimals());
+            model.put("animal", allAnimals);
             return new ModelAndView(model, "sightings.hbs");
         }, new HandlebarsTemplateEngine());
     }
