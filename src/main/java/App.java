@@ -1,6 +1,4 @@
-import module.Animal;
-import module.EndangeredAnimal;
-import module.Sighting;
+import module.*;
 import spark.ModelAndView;
 import spark.QueryParamsMap;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -34,7 +32,7 @@ public class App {
             String health = request.queryParams("health");
             String age = request.queryParams("age");
             String type = request.queryParams("type");
-            System.out.println(type);
+
             if(type.equals("animal")){
                 Animal animal = new Animal(animalName);
                 animal.save();
@@ -46,26 +44,19 @@ public class App {
                 Sighting anotherSighting = new Sighting(endangeredAnimal.getId(), location, rangerName);
                 anotherSighting.save();
             }
-            List<Sighting> allSightings = Sighting.all();
-            List<Object> allAnimals = new ArrayList<Object>();
-            List<Animal> animals= Animal.all();
-            allAnimals.add(animals);
-            List<EndangeredAnimal> endangeredAnimals= EndangeredAnimal.all();
-            allAnimals.add(endangeredAnimals);
+
+            List<AllSightings> allSightings = AllSightings.getAll();
+            List<EndangeredAnimal> animals= EndangeredAnimal.all();
             model.put("sightings", allSightings);
-            model.put("animal", allAnimals);
+            model.put("animals", animals);
+
             return new ModelAndView(model, "sightings.hbs");
         }, new HandlebarsTemplateEngine());
 
         get("/sightings", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
-            List<Object> allAnimals = new ArrayList<Object>();
-            List<Animal> animals= Animal.all();
-            allAnimals.add(animals);
-            List<EndangeredAnimal> endangeredAnimals= EndangeredAnimal.all();
-            allAnimals.add(endangeredAnimals);
-            model.put("sightings", Sighting.all());
-            model.put("animal", allAnimals);
+            model.put("sightings", AllSightings.getAll());
+            model.put("animal", EndangeredAnimal.all());
             return new ModelAndView(model, "sightings.hbs");
         }, new HandlebarsTemplateEngine());
     }

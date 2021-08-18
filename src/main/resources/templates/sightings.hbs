@@ -1,5 +1,5 @@
 {{#partial "styles"}}
-<!--    <link rel='stylesheet' href='/css/sightings.css'>-->
+    <link rel='stylesheet' href='/css/sightings.css'>
 {{/partial}}
 
 {{#partial "content"}}
@@ -19,13 +19,13 @@
         <tbody>
         {{#each sightings}}
             <tr>
-                <td>{{animal.name}}</td>
+                <td>{{name}}</td>
                 <td>{{rangerName}}</td>
                 <td>{{location}}</td>
-                <td>{{animal.health}}</td>
-                <td>{{animal.age}}</td>
-                <td>{{animal.type}}</td>
-                <td>{{lastseen}}</td>
+                <td>{{health}}</td>
+                <td>{{age}}</td>
+                <td>{{type}}</td>
+                <td>{{lastSeen}}</td>
             </tr>
         {{/each}}
         </tbody>
